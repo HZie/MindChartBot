@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 const maria = require('../database/connect/maria');
 
 // CREATE TABLE
-router.get('/', (req, res, next) => {
+router.get('/create', (req, res, next) => {
   maria.query(
     'CREATE TABLE DEPARTMENT(' +
       'DEPART_CODE INT(11) NOT NULL,' +

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 // single row in the list of data
-class ChartRecyclerViewAdpater(private val values: MutableList<UserData.Chart>?) : RecyclerView.Adapter<ChartRecyclerViewAdpater.ViewHolder>(){
+class ChartRecyclerViewAdapter(private val values: MutableList<UserData.Chart>?) : RecyclerView.Adapter<ChartRecyclerViewAdapter.ViewHolder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

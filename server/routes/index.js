@@ -14,8 +14,6 @@ const maria = require('../database/maria');
 router.get('/tables', (req, res) => {
   maria.query('SELECT * FROM logs', (err, rows, fields) => {
     if (!err) {
-      res.send(rows);
-    } else {
       let jsonArray = new Array();
       console.log(rows);
       // 받은 쿼리 결과를 모두 json형태로 바꾼 뒤 반환
@@ -31,6 +29,8 @@ router.get('/tables', (req, res) => {
       }
       res.json(jsonArray);
     }
+    } else {
+      console.log(err);
   });
 });
 

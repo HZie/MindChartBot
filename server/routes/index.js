@@ -21,7 +21,9 @@ router.get('/tables', (req, res) => {
       // 받은 쿼리 결과를 모두 json형태로 바꾼 뒤 반환
       for (let i = 0; i < rows.length; i++) {
         let obj = new Object();
-        obj.name = rows.Tables_in_mindchartdb;
+        obj.log_date = rows[i].log_date;
+        obj.category = rows[i].category;
+        obj.val = rows[i].val;
 
         obj = JSON.stringify(obj);
         jsonArray.push(JSON.parse(obj));

@@ -28,9 +28,9 @@ router.get('/tables', (req, res) => {
         jsonArray.push(JSON.parse(obj));
       }
       res.json(jsonArray);
-    }
     } else {
       console.log(err);
+    }
   });
 });
 

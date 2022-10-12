@@ -21,4 +21,21 @@ router.get('/tables', (req, res) => {
   });
 });
 
+// login
+router.post('/user/login', (req, res) => {
+  const pid = req.body.pid;
+  const pwd = req.body.pwd;
+
+  maria.query(
+    'SELECT pid, pwd FROM users WHERE pid=? AND pwd=?',
+    [pid, pwd],
+    (err, rows, fields) => {
+      if (err) {
+        console.log('err: ' + err);
+        re;
+      }
+    }
+  );
+});
+
 module.exports = router;

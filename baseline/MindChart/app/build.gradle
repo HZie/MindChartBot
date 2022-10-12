@@ -17,7 +17,9 @@ android {
 
     buildTypes {
         release {
+            // todo: 배포 전 둘 다 true로 바꾸기
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

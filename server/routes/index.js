@@ -12,7 +12,7 @@ const maria = require('../database/maria');
 
 // show tables
 router.get('/tables', (req, res) => {
-  maria.query('SHOW TABLES', (err, rows, fields) => {
+  maria.query('SELECT * FROM logs', (err, rows, fields) => {
     if (!err) {
       res.send(rows);
     } else {

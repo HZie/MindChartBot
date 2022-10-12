@@ -17,9 +17,10 @@ router.get('/tables', (req, res) => {
       res.send(rows);
     } else {
       let jsonArray = new Array();
-
+      console.log(rows);
       // 받은 쿼리 결과를 모두 json형태로 바꾼 뒤 반환
       for (let i = 0; i < rows.length; i++) {
+        console.log(rows[i]);
         let obj = new Object();
         obj.log_date = rows[i].log_date;
         obj.category = rows[i].category;

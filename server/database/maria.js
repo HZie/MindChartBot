@@ -6,7 +6,7 @@ const conn = maria.createConnection({
   port: sec.developer.port,
   user: sec.developer.username,
   password: sec.developer.password,
-  database: sec.develooper.database,
+  database: sec.developer.database,
 });
 
 module.exports = conn;

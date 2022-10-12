@@ -13,23 +13,10 @@ const maria = require('../database/maria');
 // show tables
 router.get('/tables', (req, res) => {
   maria.query('SELECT * FROM logs', (err, rows, fields) => {
-    if (!err) {
-      let jsonArray = new Array();
-      console.log(rows);
-      // 받은 쿼리 결과를 모두 json형태로 바꾼 뒤 반환
-      for (let i = 0; i < rows.length; i++) {
-        console.log(rows[i]);
-        let obj = new Object();
-        obj.log_date = rows[i].log_date;
-        obj.category = rows[i].category;
-        obj.val = rows[i].val;
-
-        obj = JSON.stringify(obj);
-        jsonArray.push(JSON.parse(obj));
-      }
-      res.json(jsonArray);
-    } else {
+    if (err) {
       console.log(err);
+    } else {
+      res.send(rows);
     }
   });
 });
@@ -41,10 +28,12 @@ router.post('/user/login', (req, res) => {
   const sql = 'SELECT * FROM users WHERE pid = ?';
 
   maria.query(sql, pid, (err, result) => {
-    let resultCode = 404;
-    let message = '에러 발생';
+    let resultCode;
+    let message;
 
     if (err) {
+      resultCode = 404;
+      message = '통신 오류';
       console.log('err: ' + err);
     } else {
       if (result.length === 0) {
@@ -60,7 +49,7 @@ router.post('/user/login', (req, res) => {
     }
 
     res.json({
-      code: resultCode,
+      resultCode: resultCode,
       message: message,
     });
   });
@@ -80,14 +69,31 @@ router.post('/user/createLog', (req, res) => {
     'INSERT INTO logs(pid, log_date, category, val) VALUES(?, ?, ?, ?)';
   const params = [pid, log_date, category, val];
   maria.query(sql, params, (err, rows, fields) => {
+    let resultCode;
+    let message;
+
     if (err) {
+      resultCode = 404;
+      message = '에러 발생';
+      console.log('err: ' + err);
+    } else {
+      resultCode = 200;
+      message = '저장 완료';
+    }
+
+    res.json({
+      resultCode: resultCode,
+      message: message,
+    });
+
+    /*if (err) {
       console.log('err: ' + err);
     } else {
       console.log(rows);
-    }
+    }*/
   });
 
-  // Read data
+  // Read data of specific category in specific date or all date
   router.get('/user/readLog', (req, res) => {
     // params
     const pid = req.body.pid;
@@ -112,10 +118,9 @@ router.post('/user/createLog', (req, res) => {
       if (err) {
         console.log('err: ' + err);
       } else {
-        // write code here
         let jsonArray = new Array();
 
-        // 받은 쿼리 결과를 모두 json형태로 바꾼 뒤 반환
+        // transform responses into json
         for (let i = 0; i < rows.length; i++) {
           let obj = new Object();
           obj.log_date = rows[i].log_date;
@@ -127,6 +132,69 @@ router.post('/user/createLog', (req, res) => {
         }
         res.json(jsonArray);
       }
+    });
+  });
+});
+
+// Update value in specific category and date
+router.post('/user/updateLog', (req, res) => {
+  // params
+  const pid = req.body.pid;
+  const log_date = req.body.log_date;
+  const category = req.body.category;
+  const val = req.body.val;
+
+  //query
+  const sql = 'UPDATE logs SET val=? WHERE pid=? AND log_date=? AND category=?';
+  const params = [val, pid, log_date, category];
+
+  maria.query(sql, params, (err, rows, fields) => {
+    let resultCode;
+    let message;
+
+    if (err) {
+      resultCode = 404;
+      message = '에러 발생';
+      console.log('err: ' + err);
+    } else {
+      resultCode = 200;
+      message = '업데이트 완료';
+    }
+
+    res.json({
+      resultCode: resultCode,
+      message: message,
+    });
+  });
+});
+
+// Delete log data in specific category and date
+router.delete('/user/deleteLog', (req, res) => {
+  // params
+  const pid = req.body.pid;
+  const log_date = req.body.log_date;
+  const category = req.body.category;
+
+  //query
+  const sql = 'DELETE FROM logs WHERE pid=? AND log_date=? AND category=?';
+  const params = [pid, log_date, category];
+
+  maria.query(sql, params, (err, rows, fields) => {
+    let resultCode;
+    let message;
+
+    if (err) {
+      resultCode = 404;
+      message = '에러 발생';
+      console.log('err: ' + err);
+    } else {
+      resultCode = 200;
+      message = '삭제 완료';
+    }
+
+    res.json({
+      resultCode: resultCode,
+      message: message,
     });
   });
 });

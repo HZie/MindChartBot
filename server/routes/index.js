@@ -25,17 +25,32 @@ router.get('/tables', (req, res) => {
 router.post('/user/login', (req, res) => {
   const pid = req.body.pid;
   const pwd = req.body.pwd;
+  const sql = 'SELECT * FROM users WHERE pid = ?';
 
-  maria.query(
-    'SELECT pid, pwd FROM users WHERE pid=? AND pwd=?',
-    [pid, pwd],
-    (err, rows, fields) => {
-      if (err) {
-        console.log('err: ' + err);
-        re;
+  maria.query(sql, pid, (err, result) => {
+    let resultCode = 404;
+    let message = '에러 발생';
+
+    if (err) {
+      console.log('err: ' + err);
+    } else {
+      if (result.length === 0) {
+        resultCode = 204;
+        message = '존재하지 않는 계정입니다.';
+      } else if (pwd !== result[0].pwd) {
+        resultCode = 204;
+        message = '비밀번호가 틀렸습니다.';
+      } else {
+        resultCode = 200;
+        message = '로그인 성공, 닉네임: ' + result[0].nickname;
       }
     }
-  );
+
+    res.json({
+      code: resultCode,
+      message: message,
+    });
+  });
 });
 
 module.exports = router;

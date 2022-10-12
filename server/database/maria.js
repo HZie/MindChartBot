@@ -1,11 +1,12 @@
 const maria = require('mysql');
+const sec = require('../database/config.json');
 
 const conn = maria.createConnection({
-  host: 'mindchart-db.c8os6asmf9cn.ap-northeast-2.rds.amazonaws.com',
-  port: 3306,
-  user: 'hidden',
-  password: 'hidden',
-  database: 'hidden',
+  host: sec.developer.host,
+  port: sec.developer.port,
+  user: sec.developer.username,
+  password: sec.developer.password,
+  database: sec.develooper.database,
 });
 
 module.exports = conn;

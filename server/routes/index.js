@@ -1,3 +1,4 @@
+const { json } = require('express');
 var express = require('express');
 var router = express.Router();
 
@@ -15,8 +16,19 @@ router.get('/tables', (req, res) => {
     if (!err) {
       res.send(rows);
     } else {
-      console.log('err: ' + err);
-      res.send(err);
+      let jsonArray = new Array();
+
+      // 받은 쿼리 결과를 모두 json형태로 바꾼 뒤 반환
+      for (let i = 0; i < rows.length; i++) {
+        let obj = new Object();
+        obj.log_date = rows[i].log_date;
+        obj.category = rows[i].category;
+        obj.val = rows[i].val;
+
+        obj = JSON.stringify(obj);
+        jsonArray.push(JSON.parse(obj));
+      }
+      res.json(jsonArray);
     }
   });
 });
@@ -49,6 +61,71 @@ router.post('/user/login', (req, res) => {
     res.json({
       code: resultCode,
       message: message,
+    });
+  });
+});
+
+// Create data
+router.post('/user/createLog', (req, res) => {
+  // data
+  const today = new Date();
+  const pid = req.body.pid;
+  const log_date =
+    today.getFullYear + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  const category = req.body.category;
+  const val = req.body.val;
+  // query
+  const sql =
+    'INSERT INTO logs(pid, log_date, category, val) VALUES(?, ?, ?, ?)';
+  const params = [pid, log_date, category, val];
+  maria.query(sql, params, (err, rows, fields) => {
+    if (err) {
+      console.log('err: ' + err);
+    } else {
+      console.log(rows);
+    }
+  });
+
+  // Read data
+  router.get('/user/readLog', (req, res) => {
+    // params
+    const pid = req.body.pid;
+    const log_date = req.body.log_date; // if it is -1, it means get everything
+    const category = req.body.category;
+
+    // query
+    let sql;
+    let params;
+
+    if (log_date === -1) {
+      // get all logs
+      sql = 'SELECT * FROM logs WHERE pid=? AND category=?';
+      params = [pid, category];
+    } else {
+      // get log of specific date
+      sql = 'SELECT * FROM logs WHERE pid=? AND log_date=? AND category=?';
+      params = [pid, log_date, category];
+    }
+
+    maria.query(sql, params, (err, rows, fields) => {
+      if (err) {
+        console.log('err: ' + err);
+      } else {
+        // write code here
+        let jsonArray = new Array();
+
+        // 받은 쿼리 결과를 모두 json형태로 바꾼 뒤 반환
+        for (let i = 0; i < rows.length; i++) {
+          let obj = new Object();
+          obj.log_date = rows[i].log_date;
+          obj.category = rows[i].category;
+          obj.val = rows[i].val;
+
+          obj = JSON.stringify(obj);
+          jsonArray.push(JSON.parse(obj));
+        }
+        res.json(jsonArray);
+      }
     });
   });
 });

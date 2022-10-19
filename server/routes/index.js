@@ -39,7 +39,7 @@ router.get('/selectall_test', (req, res) => {
         obj = JSON.stringify(obj);
         jsonArray.push(JSON.parse(obj));
       }
-      res.json(jsonArray);
+      res.json({ list: jsonArray });
     }
   });
 });
@@ -156,7 +156,7 @@ router.post('/user/createLog', (req, res) => {
           obj = JSON.stringify(obj);
           jsonArray.push(JSON.parse(obj));
         }
-        res.json(jsonArray);
+        res.json({ list: jsonArray });
       }
     });
   });

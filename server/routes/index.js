@@ -21,6 +21,28 @@ router.get('/tables', (req, res) => {
   });
 });
 
+router.get('/selectall_test', (req, res) => {
+  maria.query('SELECT * FROM logs', params, (err, rows, fields) => {
+    if (err) {
+      console.log('err: ' + err);
+    } else {
+      let jsonArray = new Array();
+
+      // transform responses into json
+      for (let i = 0; i < rows.length; i++) {
+        let obj = new Object();
+        obj.log_date = rows[i].log_date;
+        obj.category = rows[i].category;
+        obj.val = rows[i].val;
+
+        obj = JSON.stringify(obj);
+        jsonArray.push(JSON.parse(obj));
+      }
+      res.json(jsonArray);
+    }
+  });
+});
+
 // login
 router.post('/user/login', (req, res) => {
   const pid = req.body.pid;

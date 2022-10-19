@@ -136,7 +136,7 @@ router.post('/user/createLog', (req, res) => {
 // readAll
 router.get('/user/readAll', (req, res) => {
   // params
-  const pid = req.params.pid;
+  const pid = req.query.pid;
   maria.query('SELECT * FROM logs WHERE pid=?', pid, (err, rows, fields) => {
     if (err) {
       console.log('err: ' + err);

@@ -194,9 +194,9 @@ router.post('/user/updateLog', (req, res) => {
 // Delete log data in specific category and date
 router.delete('/user/deleteLog', (req, res) => {
   // params
-  const pid = req.body.pid;
-  const log_date = req.body.log_date;
-  const category = req.body.category;
+  const pid = req.query.pid;
+  const log_date = req.query.log_date;
+  const category = req.query.category;
 
   //query
   const sql = 'DELETE FROM logs WHERE pid=? AND log_date=? AND category=?';

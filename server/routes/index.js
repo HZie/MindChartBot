@@ -119,23 +119,20 @@ router.post('/user/createLog', (req, res) => {
 
 // Read data of specific category in specific date
 router.get('/user/readLog', (req, res) => {
-  console.log('this is readLog');
   // params
   const pid = req.query.pid;
-  //const log_date = req.query.log_date; // if it is "all", it means get everything
-  //const category = req.query.category;
+  const log_date = req.query.log_date; // if it is "all", it means get everything
+  const category = req.query.category;
 
   // query
   let sql = 'SELECT * FROM logs WHERE pid=?';
   let params = pid;
 
   if (log_date === 'all') {
-    console.log('readLog: this is all');
     // get all logs
     sql = 'SELECT * FROM logs WHERE pid=? AND category=?';
     params = [pid, category];
   } else {
-    console.log('readLog: this is reading specific one');
     // get log of specific date
     sql = 'SELECT * FROM logs WHERE pid=? AND log_date=? AND category=?';
     params = [pid, log_date, category];

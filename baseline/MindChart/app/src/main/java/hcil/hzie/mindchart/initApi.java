@@ -2,6 +2,7 @@ package hcil.hzie.mindchart;
 
 import com.google.gson.annotations.SerializedName;
 
+import hcil.hzie.mindchart.Data.HitRequest;
 import hcil.hzie.mindchart.Data.PostResponse;
 import hcil.hzie.mindchart.Data.LoginRequest;
 import hcil.hzie.mindchart.Data.createLogRequest;
@@ -18,6 +19,10 @@ public interface initApi {
     @POST("/user/login")
     Call<PostResponse> getPostResponse(@Body LoginRequest loginRequest);
 
+    @POST("/user/hit")
+    Call<PostResponse> getPostResponse(@Body HitRequest hitRequest);
+
+    // NOT USING BELOW CODE
     @POST("/user/createLog")
     Call<PostResponse> getPostResponse(@Body createLogRequest create);
 

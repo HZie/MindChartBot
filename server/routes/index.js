@@ -23,7 +23,7 @@ router.get('/tables', (req, res) => {
 
 // test
 router.get('/selectall_test', (req, res) => {
-  maria.query('SELECT * FROM logs', params, (err, rows, fields) => {
+  maria.query('SELECT * FROM logs', (err, rows, fields) => {
     if (err) {
       console.log('err: ' + err);
     } else {

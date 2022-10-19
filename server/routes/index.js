@@ -118,6 +118,7 @@ router.post('/user/createLog', (req, res) => {
 
   // Read data of specific category in specific date
   router.get('/user/readLog', (req, res) => {
+    console.log('this is readLog');
     // params
     const pid = req.query.pid;
     const log_date = req.query.log_date; // if it is "all", it means get everything
@@ -141,11 +142,9 @@ router.post('/user/createLog', (req, res) => {
 
     maria.query(sql, params, (err, rows, fields) => {
       if (err) {
-        resultCode = 404;
         console.log('err: ' + err);
       } else {
         let jsonArray = new Array();
-        resultCode = 200;
 
         // transform responses into json
         for (let i = 0; i < rows.length; i++) {

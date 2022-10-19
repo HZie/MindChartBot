@@ -39,9 +39,7 @@ router.get('/selectall_test', (req, res) => {
         obj = JSON.stringify(obj);
         jsonArray.push(JSON.parse(obj));
       }
-      res.json({
-        list: jsonArray,
-      });
+      res.json(jsonArray);
     }
   });
 });

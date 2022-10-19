@@ -21,6 +21,29 @@ router.get('/tables', (req, res) => {
   });
 });
 
+// test
+router.get('/selectall_test', (req, res) => {
+  maria.query('SELECT * FROM logs', (err, rows, fields) => {
+    if (err) {
+      console.log('err: ' + err);
+    } else {
+      let jsonArray = new Array();
+
+      // transform responses into json
+      for (let i = 0; i < rows.length; i++) {
+        let obj = new Object();
+        obj.log_date = rows[i].log_date;
+        obj.category = rows[i].category;
+        obj.val = rows[i].val;
+
+        obj = JSON.stringify(obj);
+        jsonArray.push(JSON.parse(obj));
+      }
+      res.json({ list: jsonArray });
+    }
+  });
+});
+
 // login
 router.post('/user/login', (req, res) => {
   const pid = req.body.pid;
@@ -105,9 +128,15 @@ router.post('/user/createLog', (req, res) => {
     let params;
     let resultCode;
 
-    // get log of specific date
-    sql = 'SELECT * FROM logs WHERE pid=? AND log_date=? AND category=?';
-    params = [pid, log_date, category];
+    if (log_date === 'all') {
+      // get all logs
+      sql = 'SELECT * FROM logs WHERE pid=? AND category=?';
+      params = [pid, category];
+    } else {
+      // get log of specific date
+      sql = 'SELECT * FROM logs WHERE pid=? AND log_date=? AND category=?';
+      params = [pid, log_date, category];
+    }
 
     maria.query(sql, params, (err, rows, fields) => {
       if (err) {
@@ -130,31 +159,6 @@ router.post('/user/createLog', (req, res) => {
         res.json({ list: jsonArray });
       }
     });
-  });
-});
-
-// readAll
-router.get('/user/readAll', (req, res) => {
-  // params
-  const pid = req.query.pid;
-  maria.query('SELECT * FROM logs WHERE pid=?', pid, (err, rows, fields) => {
-    if (err) {
-      console.log('err: ' + err);
-    } else {
-      let jsonArray = new Array();
-
-      // transform responses into json
-      for (let i = 0; i < rows.length; i++) {
-        let obj = new Object();
-        obj.log_date = rows[i].log_date;
-        obj.category = rows[i].category;
-        obj.val = rows[i].val;
-
-        obj = JSON.stringify(obj);
-        jsonArray.push(JSON.parse(obj));
-      }
-      res.json({ list: jsonArray });
-    }
   });
 });
 

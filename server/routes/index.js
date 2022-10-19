@@ -128,6 +128,7 @@ router.post('/user/createLog', (req, res) => {
     // query
     let sql;
     let params;
+    let resultCode;
 
     if (log_date === -1) {
       // get all logs
@@ -141,9 +142,11 @@ router.post('/user/createLog', (req, res) => {
 
     maria.query(sql, params, (err, rows, fields) => {
       if (err) {
+        resultCode = 404;
         console.log('err: ' + err);
       } else {
         let jsonArray = new Array();
+        resultCode = 200;
 
         // transform responses into json
         for (let i = 0; i < rows.length; i++) {
@@ -155,7 +158,7 @@ router.post('/user/createLog', (req, res) => {
           obj = JSON.stringify(obj);
           jsonArray.push(JSON.parse(obj));
         }
-        res.json({ list: jsonArray });
+        res.json({ resultCode: resultCode, list: jsonArray });
       }
     });
   });

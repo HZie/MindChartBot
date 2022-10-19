@@ -21,6 +21,7 @@ router.get('/tables', (req, res) => {
   });
 });
 
+// test
 router.get('/selectall_test', (req, res) => {
   maria.query('SELECT * FROM logs', params, (err, rows, fields) => {
     if (err) {

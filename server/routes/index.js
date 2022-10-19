@@ -128,7 +128,7 @@ router.post('/user/createLog', (req, res) => {
     let params;
     let resultCode;
 
-    if (log_date === 'all') {
+    if (log_date == 'all') {
       // get all logs
       sql = 'SELECT * FROM logs WHERE pid=? AND category=?';
       params = [pid, category];

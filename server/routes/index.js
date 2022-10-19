@@ -23,8 +23,7 @@ router.get('/tables', (req, res) => {
 
 // test
 router.get('/selectall_test', (req, res) => {
-  const pid = req.query.pid;
-  maria.query('SELECT * FROM logs WHERE pid=?',pid, (err, rows, fields) => {
+  maria.query('SELECT * FROM logs', (err, rows, fields) => {
     if (err) {
       console.log('err: ' + err);
     } else {
@@ -43,53 +42,6 @@ router.get('/selectall_test', (req, res) => {
       res.json({ list: jsonArray });
     }
   });
-});
-
-// Read data of specific category in specific date
-router.get('/readLog', (req, res) => {
-  console.log('this is readLog');
-  // params
-  const pid = req.query.pid;
-  //const log_date = req.query.log_date; // if it is "all", it means get everything
-  //const category = req.query.category;
-
-  // query
-  let sql = 'SELECT * FROM logs WHERE pid=?';
-  let params = pid;
-
-  /*
-  if (log_date === 'all') {
-    console.log('readLog: this is all');
-    // get all logs
-    sql = 'SELECT * FROM logs WHERE pid=? AND category=?';
-    params = [pid, category];
-  } else {
-    console.log('readLog: this is reading specific one');
-    // get log of specific date
-    sql = 'SELECT * FROM logs WHERE pid=? AND log_date=? AND category=?';
-    params = [pid, log_date, category];
-  }
-*/
-  maria.query(sql, params, (err, rows, fields) => {
-    if (err) {
-      console.log('err: ' + err);
-    } else {
-      let jsonArray = new Array();
-
-      // transform responses into json
-      for (let i = 0; i < rows.length; i++) {
-        let obj = new Object();
-        obj.log_date = rows[i].log_date;
-        obj.category = rows[i].category;
-        obj.val = rows[i].val;
-
-        obj = JSON.stringify(obj);
-        jsonArray.push(JSON.parse(obj));
-      }
-      res.json({ list: jsonArray });
-    }
-  });
-});
 });
 
 // login
@@ -163,8 +115,52 @@ router.post('/user/createLog', (req, res) => {
       console.log(rows);
     }*/
   });
+});
 
-  
+// Read data of specific category in specific date
+router.get('/readLog', (req, res) => {
+  console.log('this is readLog');
+  // params
+  const pid = req.query.pid;
+  //const log_date = req.query.log_date; // if it is "all", it means get everything
+  //const category = req.query.category;
+
+  // query
+  let sql = 'SELECT * FROM logs WHERE pid=?';
+  let params = pid;
+
+  if (log_date === 'all') {
+    console.log('readLog: this is all');
+    // get all logs
+    sql = 'SELECT * FROM logs WHERE pid=? AND category=?';
+    params = [pid, category];
+  } else {
+    console.log('readLog: this is reading specific one');
+    // get log of specific date
+    sql = 'SELECT * FROM logs WHERE pid=? AND log_date=? AND category=?';
+    params = [pid, log_date, category];
+  }
+
+  maria.query(sql, params, (err, rows, fields) => {
+    if (err) {
+      console.log('err: ' + err);
+    } else {
+      let jsonArray = new Array();
+
+      // transform responses into json
+      for (let i = 0; i < rows.length; i++) {
+        let obj = new Object();
+        obj.log_date = rows[i].log_date;
+        obj.category = rows[i].category;
+        obj.val = rows[i].val;
+
+        obj = JSON.stringify(obj);
+        jsonArray.push(JSON.parse(obj));
+      }
+      res.json({ list: jsonArray });
+    }
+  });
+});
 
 // Update value in specific category and date
 router.post('/user/updateLog', (req, res) => {

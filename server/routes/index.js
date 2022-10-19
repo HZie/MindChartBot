@@ -96,9 +96,9 @@ router.post('/user/createLog', (req, res) => {
   // Read data of specific category in specific date
   router.get('/user/readLog', (req, res) => {
     // params
-    const pid = req.body.pid;
-    const log_date = req.body.log_date; // if it is "all", it means get everything
-    const category = req.body.category;
+    const pid = req.query.pid;
+    const log_date = req.query.log_date; // if it is "all", it means get everything
+    const category = req.query.category;
 
     // query
     let sql;

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static RetrofitClient instance = null;
-    private static initMyApi initMyApi;
+    private static initApi initApi;
     // 서버 BASE주소
     private static final String BASE = "ec2-3-35-3-61.ap-northeast-2.compute.amazonaws.com:3000/";
 
@@ -26,7 +26,7 @@ public class RetrofitClient {
                 .client(client) // 로그 기능 추가
                 .build();
 
-        initMyApi = retrofit.create(initMyApi.class);
+        initApi = retrofit.create(initApi.class);
     }
 
     public static RetrofitClient getInstance(){
@@ -36,7 +36,7 @@ public class RetrofitClient {
         return instance;
     }
 
-    public static initMyApi getRetrofitInterface(){
-        return initMyApi;
+    public static initApi getRetrofitInterface(){
+        return initApi;
     }
 }

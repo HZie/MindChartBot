@@ -122,7 +122,7 @@ router.post('/user/createLog', (req, res) => {
   router.get('/user/readLog', (req, res) => {
     // params
     const pid = req.body.pid;
-    const log_date = req.body.log_date; // if it is -1, it means get everything
+    const log_date = req.body.log_date; // if it is "all", it means get everything
     const category = req.body.category;
 
     // query
@@ -130,7 +130,7 @@ router.post('/user/createLog', (req, res) => {
     let params;
     let resultCode;
 
-    if (log_date === -1) {
+    if (log_date === 'all') {
       // get all logs
       sql = 'SELECT * FROM logs WHERE pid=? AND category=?';
       params = [pid, category];
@@ -158,7 +158,7 @@ router.post('/user/createLog', (req, res) => {
           obj = JSON.stringify(obj);
           jsonArray.push(JSON.parse(obj));
         }
-        res.json({ resultCode: resultCode, list: jsonArray });
+        res.json(jsonArray);
       }
     });
   });

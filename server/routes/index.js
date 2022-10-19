@@ -78,6 +78,30 @@ router.post('/user/login', (req, res) => {
   });
 });
 
+router.post('/user/hit', (req, res) => {
+  const pid = req.body.pid;
+  const sql = 'INSERT INTO hit(pid) VALUES(?)';
+  maria.query(sql, pid, (err, rows, fields) => {
+    let resultCode;
+    let message;
+
+    if (err) {
+      resultCode = 404;
+      message = '에러 발생';
+      console.log('err: ' + err);
+    } else {
+      resultCode = 200;
+      message = 'hit';
+    }
+
+    res.json({
+      resultCode: resultCode,
+      message: message,
+    });
+  });
+});
+
+// NOT USE BELOW CODES
 // Create data
 router.post('/user/createLog', (req, res) => {
   // data

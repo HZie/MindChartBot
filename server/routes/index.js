@@ -84,7 +84,7 @@ router.post('/user/createLog', (req, res) => {
   const today = new Date();
   const pid = req.body.pid;
   const log_date =
-    today.getFullYear + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
   const category = req.body.category;
   const val = req.body.val;
   // query

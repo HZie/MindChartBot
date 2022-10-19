@@ -121,13 +121,14 @@ router.post('/user/createLog', (req, res) => {
     console.log('this is readLog');
     // params
     const pid = req.query.pid;
-    const log_date = req.query.log_date; // if it is "all", it means get everything
-    const category = req.query.category;
+    //const log_date = req.query.log_date; // if it is "all", it means get everything
+    //const category = req.query.category;
 
     // query
-    let sql;
-    let params;
+    let sql = 'SELECT * FROM logs WHERE pid=?';
+    let params = pid;
 
+    /*
     if (log_date === 'all') {
       console.log('readLog: this is all');
       // get all logs
@@ -139,7 +140,7 @@ router.post('/user/createLog', (req, res) => {
       sql = 'SELECT * FROM logs WHERE pid=? AND log_date=? AND category=?';
       params = [pid, log_date, category];
     }
-
+*/
     maria.query(sql, params, (err, rows, fields) => {
       if (err) {
         console.log('err: ' + err);

@@ -118,7 +118,7 @@ router.post('/user/createLog', (req, res) => {
 });
 
 // Read data of specific category in specific date
-router.get('/readLog', (req, res) => {
+router.get('/user/readLog', (req, res) => {
   console.log('this is readLog');
   // params
   const pid = req.query.pid;

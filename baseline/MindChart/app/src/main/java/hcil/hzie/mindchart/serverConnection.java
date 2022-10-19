@@ -2,19 +2,13 @@ package hcil.hzie.mindchart;
 
 import android.util.Log;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import hcil.hzie.mindchart.Data.LoginRequest;
-import hcil.hzie.mindchart.Data.LoginResponse;
+import hcil.hzie.mindchart.Data.PostResponse;
 import hcil.hzie.mindchart.Data.createLogRequest;
-import hcil.hzie.mindchart.Data.createLogResponse;
-import hcil.hzie.mindchart.Data.deleteLogRequest;
-import hcil.hzie.mindchart.Data.deleteLogResponse;
-import hcil.hzie.mindchart.Data.logData;
-import hcil.hzie.mindchart.Data.readLogRequest;
 import hcil.hzie.mindchart.Data.readLogResponse;
 import hcil.hzie.mindchart.Data.updateLogRequest;
-import hcil.hzie.mindchart.Data.updateLogResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,16 +31,16 @@ public class serverConnection {
         LoginRequest loginRequest = new LoginRequest(pid, pwd);
 
         // loginRequest에 저장된 데이터와 getLoginResponse 함수 실행 후 응답 받기
-        initApi.getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>(){
+        initApi.getPostResponse(loginRequest).enqueue(new Callback<PostResponse>(){
 
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                 Log.d(TAG, "Data fetch success");
 
                 // 통신 성공
                 if(response.isSuccessful() && response.body() != null){
                     // response.body()를 result에 저장
-                    LoginResponse result = response.body();
+                    PostResponse result = response.body();
 
                     // 받은 토큰 저장
                     String message = result.getMessage();
@@ -62,7 +56,7 @@ public class serverConnection {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<PostResponse> call, Throwable t) {
                 Log.e(TAG, t.getMessage());
             }
         });
@@ -76,15 +70,15 @@ public class serverConnection {
         // request obj 생성
         createLogRequest req = new createLogRequest(pid, category, val);
 
-        initApi.getCreateLogResponse(req).enqueue(new Callback<createLogResponse>(){
+        initApi.getPostResponse(req).enqueue(new Callback<PostResponse>(){
             @Override
-            public void onResponse(Call<createLogResponse> call, Response<createLogResponse> response) {
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                 Log.d(TAG, "Data fetch success");
 
                 // 통신 성공
                 if(response.isSuccessful() && response.body() != null){
                     // response.body()를 result에 저장
-                    createLogResponse result = response.body();
+                    PostResponse result = response.body();
 
                     // 받은 토큰 저장
                     String message = result.getMessage();
@@ -97,7 +91,7 @@ public class serverConnection {
             }
 
             @Override
-            public void onFailure(Call<createLogResponse> call, Throwable t) {
+            public void onFailure(Call<PostResponse> call, Throwable t) {
                 Log.e(TAG, t.getMessage());
             }
         });
@@ -108,19 +102,20 @@ public class serverConnection {
         retrofitClient = RetrofitClient.getInstance();
         initApi = RetrofitClient.getRetrofitInterface();
         TAG = "serverConnection-readLog()";
-        readLogRequest req = new readLogRequest(pid, log_date, category);
 
-        initApi.getReadLogResponse(req).enqueue(new Callback<readLogResponse>(){
+        initApi.getReadLogResponse(pid, log_date, category).enqueue(new Callback<readLogResponse>() {
             @Override
             public void onResponse(Call<readLogResponse> call, Response<readLogResponse> response) {
                 Log.d(TAG, "Data fetch success");
 
                 if(response.isSuccessful() && response.body() != null){
-                    readLogResponse result = response.body();
+                    readLogResponse res = response.body();
+                    Log.d(TAG, "response.raw: " + response.raw());
 
-                    ArrayList<logData> list = result.getList();
-                    for(int i = 0; i < list.size(); i++){
-                        Log.d(TAG, "list["+i+"]: date-" + list.get(i).getLog_date()+", category-"+list.get(i).getCategory());
+                    List<readLogResponse.logs> logs = res.getLogs();
+                    for(int i = 0; i < logs.size(); i++){
+                        readLogResponse.logs log = logs.get(i);
+                        Log.d(TAG, "logs["+i+"]: date-" + log.getLog_date() + ", category: " + log.getCategory() + ", val: " + log.getVal());
                     }
                 }
                 else{
@@ -133,6 +128,7 @@ public class serverConnection {
                 Log.e(TAG, t.getMessage());
             }
         });
+
     }
 
     // update log
@@ -143,15 +139,15 @@ public class serverConnection {
         // request obj 생성
         updateLogRequest req = new updateLogRequest(pid, log_date, category, val);
 
-        initApi.getUpdateLogResponse(req).enqueue(new Callback<updateLogResponse>(){
+        initApi.getPostResponse(req).enqueue(new Callback<PostResponse>(){
             @Override
-            public void onResponse(Call<updateLogResponse> call, Response<updateLogResponse> response) {
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                 Log.d(TAG, "Data fetch success");
 
                 // 통신 성공
                 if(response.isSuccessful() && response.body() != null){
                     // response.body()를 result에 저장
-                    updateLogResponse result = response.body();
+                    PostResponse result = response.body();
 
                     // 받은 토큰 저장
                     String message = result.getMessage();
@@ -164,7 +160,7 @@ public class serverConnection {
             }
 
             @Override
-            public void onFailure(Call<updateLogResponse> call, Throwable t) {
+            public void onFailure(Call<PostResponse> call, Throwable t) {
                 Log.e(TAG, t.getMessage());
             }
         });
@@ -175,18 +171,16 @@ public class serverConnection {
         retrofitClient = RetrofitClient.getInstance();
         initApi = RetrofitClient.getRetrofitInterface();
         TAG = "serverConnection-deleteLog()";
-        // request obj 생성
-        deleteLogRequest req = new deleteLogRequest(pid, log_date, category);
 
-        initApi.getDeleteLogResponse(req).enqueue(new Callback<deleteLogResponse>(){
+        initApi.getPostResponse(pid, log_date, category).enqueue(new Callback<PostResponse>(){
             @Override
-            public void onResponse(Call<deleteLogResponse> call, Response<deleteLogResponse> response) {
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                 Log.d(TAG, "Data fetch success");
 
                 // 통신 성공
                 if(response.isSuccessful() && response.body() != null){
                     // response.body()를 result에 저장
-                    deleteLogResponse result = response.body();
+                    PostResponse result = response.body();
 
                     // 받은 토큰 저장
                     String message = result.getMessage();
@@ -199,7 +193,7 @@ public class serverConnection {
             }
 
             @Override
-            public void onFailure(Call<deleteLogResponse> call, Throwable t) {
+            public void onFailure(Call<PostResponse> call, Throwable t) {
                 Log.e(TAG, t.getMessage());
             }
         });

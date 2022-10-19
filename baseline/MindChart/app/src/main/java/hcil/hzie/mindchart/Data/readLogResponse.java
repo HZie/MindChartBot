@@ -3,27 +3,49 @@ package hcil.hzie.mindchart.Data;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class readLogResponse {
     @SerializedName("resultCode")
-    public String resultCode;
-
+    public int resultCode;
     @SerializedName("list")
-    public ArrayList<logData> list =  new ArrayList<>();
+    ArrayList<logs> logs = new ArrayList<>();
 
-    public String getResultCode() {
+    public class logs{
+        @SerializedName("log_date") String log_date;
+        @SerializedName("category") String category;
+        @SerializedName("val")      int val;
+
+        public String getLog_date() {
+            return log_date;
+        }
+
+        public void setLog_date(String log_date) {
+            this.log_date = log_date;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
+
+        public int getVal() {
+            return val;
+        }
+
+        public void setVal(int val) {
+            this.val = val;
+        }
+    }
+
+    public int getResultCode() {
         return resultCode;
     }
 
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public ArrayList<logData> getList() {
-        return list;
-    }
-
-    public void setList(ArrayList<logData> list) {
-        this.list = list;
+    public ArrayList<readLogResponse.logs> getLogs() {
+        return logs;
     }
 }

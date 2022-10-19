@@ -9,7 +9,7 @@ public class RetrofitClient {
     private static RetrofitClient instance = null;
     private static initApi initApi;
     // 서버 BASE주소
-    private static final String BASE = "ec2-3-35-3-61.ap-northeast-2.compute.amazonaws.com:3000/";
+    private static final String BASE = "http://ec2-3-35-3-61.ap-northeast-2.compute.amazonaws.com:3000/";
 
     private RetrofitClient(){
         // 로그를 위한 Interceptor

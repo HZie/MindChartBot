@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link questionnaire#newInstance} factory method to
+ * Use the {@link QuestionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class questionnaire extends Fragment {
+public class QuestionFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class questionnaire extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public questionnaire() {
+    public QuestionFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class questionnaire extends Fragment {
      * @return A new instance of fragment questionnaire.
      */
     // TODO: Rename and change types and number of parameters
-    public static questionnaire newInstance(String param1, String param2) {
-        questionnaire fragment = new questionnaire();
+    public static QuestionFragment newInstance(String param1, String param2) {
+        QuestionFragment fragment = new QuestionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +59,6 @@ public class questionnaire extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_questionnaire, container, false);
+        return inflater.inflate(R.layout.fragment_question, container, false);
     }
 }

@@ -1,34 +1,35 @@
 package hcil.hzie.mindchart;
 
+import com.google.gson.annotations.SerializedName;
+
+import hcil.hzie.mindchart.Data.PostResponse;
 import hcil.hzie.mindchart.Data.LoginRequest;
-import hcil.hzie.mindchart.Data.LoginResponse;
 import hcil.hzie.mindchart.Data.createLogRequest;
-import hcil.hzie.mindchart.Data.createLogResponse;
-import hcil.hzie.mindchart.Data.deleteLogRequest;
-import hcil.hzie.mindchart.Data.deleteLogResponse;
-import hcil.hzie.mindchart.Data.readLogRequest;
 import hcil.hzie.mindchart.Data.readLogResponse;
 import hcil.hzie.mindchart.Data.updateLogRequest;
-import hcil.hzie.mindchart.Data.updateLogResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface initApi {
     @POST("/user/login")
-    Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
+    Call<PostResponse> getPostResponse(@Body LoginRequest loginRequest);
 
     @POST("/user/createLog")
-    Call<createLogResponse> getCreateLogResponse(@Body createLogRequest create);
+    Call<PostResponse> getPostResponse(@Body createLogRequest create);
 
     @GET("/user/readLog")
-    Call<readLogResponse> getReadLogResponse(@Body readLogRequest read);
+    Call<readLogResponse> getReadLogResponse(
+            @Query("pid")  String pid,
+            @Query("log_date")  String log_date,
+            @Query("category") String category
+            );
 
     @POST("/user/updateLog")
-    Call<updateLogResponse> getUpdateLogResponse(@Body updateLogRequest update);
-
+    Call<PostResponse> getPostResponse(@Body updateLogRequest update);
     @DELETE("/user/deleteLog")
-    Call<deleteLogResponse> getDeleteLogResponse(@Body deleteLogRequest delete);
+    Call<PostResponse> getPostResponse(@Query("pid") String pid, @Query("log_date") String log_date, @Query("category") String category);
 }

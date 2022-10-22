@@ -1,18 +1,615 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save"
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:layout_marginTop="10dp"
+            android:text="감정기록지"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_help"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:icon="@android:drawable/ic_menu_help" />
+
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 기분 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question01_mood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="오늘의 기분"
+                    android:textAlignment="textStart"
+                    android:textSize="17sp" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadeScrollbars="true">
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/multiplechip_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        app:singleLine="true"
+                        >
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="-4" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="-3" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="-2" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="-1" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="0" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="1" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="2" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="3" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="4" />
+                    </com.google.android.material.chip.ChipGroup>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <!-- 정서반응 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question02_fear"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:fontFamily="casual"
+                    android:gravity="center_vertical"
+                    android:text="정서반응 - 두려움/소심함/걱정/불안"
+                    android:textSize="17sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/menu02_fear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="값"
+                        android:inputType="none"
+                        android:textAlignment="center" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question03_irritation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:fontFamily="casual"
+                    android:gravity="center_vertical"
+                    android:text="정서반응 - 짜증/분노"
+                    android:textSize="17sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/menu03_irritation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="값"
+                        android:inputType="none"
+                        android:textAlignment="center" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- 의욕 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question04_interest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:fontFamily="casual"
+                    android:gravity="center_vertical"
+                    android:text="의욕 - 관심/흥미/즐거움/소비/계획"
+                    android:textSize="17sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/menu04_interest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="값"
+                        android:inputType="none"
+                        android:textAlignment="center" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question05_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:fontFamily="casual"
+                    android:gravity="center_vertical"
+                    android:text="정서반응 - 활동량"
+                    android:textSize="17sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/menu05_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="값"
+                        android:inputType="none"
+                        android:textAlignment="center" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- 생각 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question06_speed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:fontFamily="casual"
+                    android:gravity="center_vertical"
+                    android:text="생각 - 생각의 속도와 양"
+                    android:textSize="17sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/menu06_speed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="값"
+                        android:inputType="none"
+                        android:textAlignment="center" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question07_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:fontFamily="casual"
+                    android:gravity="center_vertical"
+                    android:text="생각 - 생각의 내용"
+                    android:textSize="17sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/menu07_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="값"
+                        android:inputType="none"
+                        android:textAlignment="center" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <!-- 수면시간 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question08_sleep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="수면시간"
+                    android:textAlignment="textStart"
+                    android:textSize="17sp"
+                    android:layout_weight="8"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:inputType="number"
+                    android:text="시간"/>
+            </LinearLayout>
+
+            <!-- 체중 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question09_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="체중"
+                    android:textAlignment="textStart"
+                    android:textSize="17sp"
+                    android:layout_weight="8"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:inputType="number"
+                    android:text="kg"/>
+            </LinearLayout>
+
+            <!-- 생리기간 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question10_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="casual"
+                    android:text="생리기간"
+                    android:layout_weight="9"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"/>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <!-- 음주 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question11_drink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="음주"
+                    android:textAlignment="textStart"
+                    android:textSize="17sp"
+                    android:layout_weight="8"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:inputType="number"
+                    android:text="잔"/>
+            </LinearLayout>
+
+            <!-- 폭식 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question12_eat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="casual"
+                    android:text="폭식"
+                    android:layout_weight="9"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"/>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <!-- 통증 및 신체증상 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question13_pain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="casual"
+                    android:text="통증 및 신체증상"
+                    android:layout_weight="9"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"/>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- 울음 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question14_cry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="casual"
+                    android:text="울음"
+                    android:layout_weight="9"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"/>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- 과호흡 및 공황 발작 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question15_paroxysm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="casual"
+                    android:text="과호흡 및 발작"
+                    android:layout_weight="9"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"/>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <!-- 운동 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question16_exercise"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="casual"
+                    android:text="운동"
+                    android:layout_weight="9"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"/>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <!-- 생활사건 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/question17_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="생활 사건이 있다면 아래에 기술하세요."
+                    android:textAlignment="textStart"
+                    android:textSize="17sp"
+                    android:layout_weight="8"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_gravity="end"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
     <!--
 <com.google.android.material.button.MaterialButton
     android:id="@+id/btn_create"
@@ -52,5 +649,4 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/btn_update" />
 -->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

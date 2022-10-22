@@ -10,9 +10,8 @@
 
         android:layout_height="wrap_content"
         android:fontFamily="casual"
-        android:text="오늘의\n기분기록지 작성\n완료했습니다!"
+        android:text="오늘의\n기분기록지 작성을\n완료했습니다!"
         android:textAlignment="center"
-        android:textColor="@color/md_theme_dark_inversePrimary"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

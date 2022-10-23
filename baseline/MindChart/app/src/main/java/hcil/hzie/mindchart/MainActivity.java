@@ -22,7 +22,7 @@ import java.util.List;
 import hcil.hzie.mindchart.Server.serverConnection;
 
 public class MainActivity extends AppCompatActivity {
-    int MODE = 1;   // 0: baseline, 1: chatbot, 2: chatbot w/voice
+    int MODE = 1;   // 0: baseline, 1: chatbot
     String TAG = "MainActivity";
     MaterialButton saveBtn;
     MaterialButton helpBtn;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     HelpFragment help;
     File todayHit;
     View baselineView;
-    RecyclerView chatView, voiceView;
+    RecyclerView chatView;
 
     /*
     MaterialButton createBtn;
@@ -120,9 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             // chatbot w/voice
-            case 2:
-                break;
-
             default:
                 setContentView(R.layout.activity_end);
                 break;

@@ -22,7 +22,7 @@ import java.util.List;
 import hcil.hzie.mindchart.Server.serverConnection;
 
 public class MainActivity extends AppCompatActivity {
-    int MODE = 1;   // 0: baseline, 1: chatbot
+    int MODE = 0;   // 0: baseline, 1: chatbot
     String TAG = "MainActivity";
     MaterialButton saveBtn;
     MaterialButton helpBtn;
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         //serverConnection.hit();
                         setContentView(R.layout.activity_end);
-                        //todayHit = new File(MainActivity.this.getFilesDir(), date.toString());
+                        todayHit = new File(MainActivity.this.getFilesDir(), date.toString());
                         //Log.d("Directory",MainActivity.this.getFilesDir().toString());
                         try{
                             FileOutputStream fos = openFileOutput(date.toString(), MODE_PRIVATE);

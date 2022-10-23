@@ -1,4 +1,4 @@
-package hcil.hzie.mindchart.Data;
+package hcil.hzie.mindchart.Server;
 
 import com.google.gson.annotations.SerializedName;
 public class PostResponse {

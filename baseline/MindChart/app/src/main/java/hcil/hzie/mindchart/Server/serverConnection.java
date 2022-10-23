@@ -1,15 +1,9 @@
-package hcil.hzie.mindchart;
+package hcil.hzie.mindchart.Server;
 
 import android.util.Log;
 
 import java.util.List;
 
-import hcil.hzie.mindchart.Data.HitRequest;
-import hcil.hzie.mindchart.Data.LoginRequest;
-import hcil.hzie.mindchart.Data.PostResponse;
-import hcil.hzie.mindchart.Data.createLogRequest;
-import hcil.hzie.mindchart.Data.readLogResponse;
-import hcil.hzie.mindchart.Data.updateLogRequest;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,7 +15,7 @@ public class serverConnection {
 
     // server connection
     private static RetrofitClient retrofitClient;
-    private static initApi initApi;
+    private static hcil.hzie.mindchart.Server.initApi initApi;
 
     // server connection
     public static void login(){
@@ -64,7 +58,7 @@ public class serverConnection {
     }
 
     // hit
-    static void hit(){
+    public static void hit(){
         retrofitClient = RetrofitClient.getInstance();
         initApi = RetrofitClient.getRetrofitInterface();
         TAG = "serverConnection-hit()";

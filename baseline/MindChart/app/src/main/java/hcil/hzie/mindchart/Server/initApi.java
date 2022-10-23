@@ -1,13 +1,11 @@
-package hcil.hzie.mindchart;
+package hcil.hzie.mindchart.Server;
 
-import com.google.gson.annotations.SerializedName;
-
-import hcil.hzie.mindchart.Data.HitRequest;
-import hcil.hzie.mindchart.Data.PostResponse;
-import hcil.hzie.mindchart.Data.LoginRequest;
-import hcil.hzie.mindchart.Data.createLogRequest;
-import hcil.hzie.mindchart.Data.readLogResponse;
-import hcil.hzie.mindchart.Data.updateLogRequest;
+import hcil.hzie.mindchart.Server.HitRequest;
+import hcil.hzie.mindchart.Server.PostResponse;
+import hcil.hzie.mindchart.Server.LoginRequest;
+import hcil.hzie.mindchart.Server.createLogRequest;
+import hcil.hzie.mindchart.Server.readLogResponse;
+import hcil.hzie.mindchart.Server.updateLogRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

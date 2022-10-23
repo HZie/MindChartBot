@@ -22,7 +22,7 @@ import java.util.List;
 import hcil.hzie.mindchart.Server.serverConnection;
 
 public class MainActivity extends AppCompatActivity {
-    int MODE = 0;   // 0: baseline, 1: chatbot
+    int MODE = 1;   // 0: baseline, 1: chatbot
     String TAG = "MainActivity";
     MaterialButton saveBtn;
     MaterialButton helpBtn;
@@ -177,11 +177,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<ChatData> getData(){
         ArrayList<ChatData> data = new ArrayList<>();
-        data.add(new ChatData("05:22", "hello", "user"));
-        data.add(new ChatData("05:23", "can I have your phone number?", "user"));
-        data.add(new ChatData("06:23", "000000", "user1"));
-        data.add(new ChatData("07:01", "111111", "user2"));
-        data.add(new ChatData("11:20", "I'll let you know later.", "user3"));
+        data.add(new ChatData("05:22", "안넝하세요 마인드봇입니다.", "마인드봇"));
+        data.add(new ChatData("05:23", "오늘의 기분은 어떠세요?", "마인드봇"));
+        data.add(new ChatData("06:23", "좋아!", "user"));
+        data.add(new ChatData("07:01", "얼만큼 좋으세요?", "마인드봇"));
+        data.add(new ChatData("11:20", "일상생활에 지장 없을 정도!", "user"));
         return data;
     }
 }

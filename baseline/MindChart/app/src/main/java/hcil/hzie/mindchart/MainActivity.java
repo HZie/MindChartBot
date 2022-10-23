@@ -10,11 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView dropdownMenu;
     HelpFragment help;
     File todayHit;
-    View baselineView;
-    RecyclerView chatView;
+    View baselineView, chatView;
+    RecyclerView recyclerView;
+    ArrayList<ChatData> data;
 
     /*
     MaterialButton createBtn;
@@ -111,12 +114,31 @@ public class MainActivity extends AppCompatActivity {
             // chatbot
             case 1:
                 chatView.setVisibility(View.VISIBLE);
+                recyclerView = findViewById(R.id.recyclerView);
+                TextInputEditText input = findViewById(R.id.input);
+                MaterialButton send = findViewById(R.id.btn_send);
+                data = new ArrayList<>();
+
                 ChatAdapter chatAdapter = new ChatAdapter();
 
                 // data 뷰에 저장
                 chatAdapter.submitData(getData());
 
-                chatView.setAdapter(chatAdapter);
+                recyclerView.setAdapter(chatAdapter);
+
+                send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("sendBtn","하이");
+                        if(input.getText().toString().length() == 0)
+                            return;
+                        Date timestamp = new Date(System.currentTimeMillis());
+                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+                        String time = sdf.format(timestamp).toString();
+                        data.add(new ChatData(time, input.getText().toString(), "user"));
+                        chatAdapter.submitData(data);
+                    }
+                });
                 break;
 
             // chatbot w/voice
@@ -128,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         helpBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, help).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, help).commit();
             }
         });
 
@@ -176,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayList<ChatData> getData(){
-        ArrayList<ChatData> data = new ArrayList<>();
         data.add(new ChatData("05:22", "안넝하세요 마인드봇입니다.", "마인드봇"));
         data.add(new ChatData("05:23", "오늘의 기분은 어떠세요?", "마인드봇"));
         data.add(new ChatData("06:23", "좋아!", "user"));

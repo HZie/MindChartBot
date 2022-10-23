@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/layout/activity_baseline.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_end.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/activity_help.xml" value="0.2515625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2361111111111111" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/chat_received_message.xml" value="0.1" />
         <entry key="app/src/main/res/layout/chat_sent_message.xml" value="0.20059051513671877" />
         <entry key="app/src/main/res/layout/fragment_help.xml" value="0.18442153493699887" />
